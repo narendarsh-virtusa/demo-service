@@ -11,6 +11,9 @@ var corsOptions = {
 var cassandraHost = process.env.CASSANDRA_HOST || '0.0.0.0';
 console.log('cassandraHost:', cassandraHost);
 
+var masterNode = process.env.MASTER_NODE || false;
+console.log('masterNode:', masterNode);
+
 var debug = require('debug')('http')
   , name = 'Lloyds POC';
 
@@ -31,7 +34,7 @@ models.setDirectory(__dirname + '/models').bind({
       class: 'SimpleStrategy',
       replication_factor: 1
     },
-    createKeyspace: false,
+    createKeyspace: masterNode,
     migration: 'safe'
   }
 },
