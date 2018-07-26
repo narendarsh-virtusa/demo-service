@@ -4,11 +4,11 @@ var models = require('express-cassandra');
 var faker = require('faker');
 var cors = require('cors')
 var corsOptions = {
-  origin: 'http://localhost:9000',
+  origin: 'http://0.0.0.0:9000',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
-var cassandraHost = process.env.CASSANDRA_HOST || '127.0.0.1';
+var cassandraHost = process.env.CASSANDRA_HOST || '0.0.0.0';
 console.log('cassandraHost:', cassandraHost);
 
 var debug = require('debug')('http')
@@ -31,6 +31,7 @@ models.setDirectory(__dirname + '/models').bind({
       class: 'SimpleStrategy',
       replication_factor: 1
     },
+    createKeyspace: false,
     migration: 'safe'
   }
 },
